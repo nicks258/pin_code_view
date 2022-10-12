@@ -13,7 +13,7 @@ enum KeyboardType {
 class PinCode extends StatefulWidget {
   final String title;
   final String? subtitle, error;
-  final Function(String) onChange;
+  final Function(String,Function(bool)) onChange;
   final int codeLength;
   final TextStyle? titleTextStyle,
       subtitleTextStyle,
@@ -137,7 +137,13 @@ class PinCodeState extends State<PinCode> {
                 });
               }
               if (smsCode.length == widget.codeLength) {
-                widget.onChange(smsCode);
+                widget.onChange(smsCode,(delete){
+                  if(delete){
+                    smsCode = "";
+                  }else{
+                    print('not delete');
+                  }
+                });
               }
             },
             onBackPressed: () {
